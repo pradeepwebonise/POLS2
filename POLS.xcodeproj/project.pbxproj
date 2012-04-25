@@ -13,6 +13,7 @@
 		06C63F1B1546FF15006E4FF6 /* MyVictoriesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06C63F191546FF15006E4FF6 /* MyVictoriesViewController.xib */; };
 		06C63F1F1546FF32006E4FF6 /* MyFavouritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C63F1D1546FF32006E4FF6 /* MyFavouritesViewController.m */; };
 		06C63F201546FF32006E4FF6 /* MyFavouritesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06C63F1E1546FF32006E4FF6 /* MyFavouritesViewController.xib */; };
+		06DA24AB1547F1AC005E1727 /* FeedsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06DA24AA1547F1AC005E1727 /* FeedsTableViewCell.xib */; };
 		1D3623260D0F684500981E51 /* POLSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* POLSAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -31,6 +32,7 @@
 		06C63F1C1546FF32006E4FF6 /* MyFavouritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFavouritesViewController.h; sourceTree = "<group>"; };
 		06C63F1D1546FF32006E4FF6 /* MyFavouritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFavouritesViewController.m; sourceTree = "<group>"; };
 		06C63F1E1546FF32006E4FF6 /* MyFavouritesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyFavouritesViewController.xib; sourceTree = "<group>"; };
+		06DA24AA1547F1AC005E1727 /* FeedsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedsTableViewCell.xib; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* POLSAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POLSAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* POLSAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POLSAppDelegate.m; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				06C63F1C1546FF32006E4FF6 /* MyFavouritesViewController.h */,
 				06C63F1D1546FF32006E4FF6 /* MyFavouritesViewController.m */,
 				06C63F1E1546FF32006E4FF6 /* MyFavouritesViewController.xib */,
+				06DA24AA1547F1AC005E1727 /* FeedsTableViewCell.xib */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 				06C63F161546FEEE006E4FF6 /* FeedsViewController.xib in Resources */,
 				06C63F1B1546FF15006E4FF6 /* MyVictoriesViewController.xib in Resources */,
 				06C63F201546FF32006E4FF6 /* MyFavouritesViewController.xib in Resources */,
+				06DA24AB1547F1AC005E1727 /* FeedsTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
