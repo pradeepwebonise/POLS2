@@ -7,6 +7,7 @@
 //
 
 #import "FeedsViewController.h"
+#define baseURL @"http://pols-2.heroku.com/apis/"
 
 @implementation FeedsViewController
 @synthesize listData;
@@ -14,6 +15,7 @@
 @synthesize postedBy;
 @synthesize onDate;
 @synthesize tableViewCell;
+@synthesize objFeedsResult;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,9 +40,41 @@
 {
     NSArray *array = [[NSArray alloc] initWithObjects:@"iPhone",@"iPad",@"Android",@"Nokia",@"BlackBerry", nil];
     self.listData= array;
+    restConnection =[RestConnection new];
+    restConnection.baseURLString=baseURL;
+      
+    restConnection.delegate=self;
+    
+    NSString *urlString = [NSString stringWithFormat:@"feeds.js"];
+	[restConnection performRequest:
+	 [NSURLRequest requestWithURL:
+	  [NSURL URLWithString:urlString]]];
     [array release];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+
+#pragma mark RestConnectionDelegate
+
+- (void)willSendRequest:(NSURLRequest *)request
+{
+	//[activityIndicator startAnimating];
+}
+
+- (void)didReceiveResponse:(NSURLResponse *)response
+{
+	NSLog(@"didReceiveResponse: %@", response);
+}
+
+- (void)finishedReceivingData:(NSData *)data
+{
+	NSLog(@"finishedReceivingData: %@", [restConnection stringData]);
+    NSString *feedsReponse= [restConnection stringData];
+    NSLog(@"feedsResponse: %@", feedsReponse);
+    objFeedsResult = [FeedsResult new];
+    self.objFeedsResult = [FeedsResult parseFeedsData:feedsReponse];
+	//[activityIndicator stopAnimating];
+    //textView.text = [restConnection stringData];
 }
 
 - (void)viewDidUnload
@@ -82,7 +116,7 @@
         NSUInteger row = [indexPath row];
         
         title.text=[listData objectAtIndex:row];
-    //  title.text=@"Score FC";
+        // title.text=@"Score FC";
         postedBy.text=@"Posted By: Nilesh";
         onDate.text=@"On: 2012-12-01";
     }
@@ -95,6 +129,7 @@
 - (void) dealloc 
 {
     [listData dealloc];
+    [restConnection release];
     [super dealloc];
 }
 

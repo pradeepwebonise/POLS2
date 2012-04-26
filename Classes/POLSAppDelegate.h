@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+@class FeedsViewController;
 
 @interface POLSAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
     UITabBarController *tcTabBar;
+    
+@private
+    FeedsViewController *feedsViewController;
     
 }
 

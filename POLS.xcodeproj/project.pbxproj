@@ -13,6 +13,8 @@
 		06C63F1B1546FF15006E4FF6 /* MyVictoriesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06C63F191546FF15006E4FF6 /* MyVictoriesViewController.xib */; };
 		06C63F1F1546FF32006E4FF6 /* MyFavouritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C63F1D1546FF32006E4FF6 /* MyFavouritesViewController.m */; };
 		06C63F201546FF32006E4FF6 /* MyFavouritesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06C63F1E1546FF32006E4FF6 /* MyFavouritesViewController.xib */; };
+		06D73AAA15492A7300E7EB7F /* RestConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D73AA915492A7300E7EB7F /* RestConnection.m */; };
+		06D73AB615496B3900E7EB7F /* FeedsResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D73AB515496B3800E7EB7F /* FeedsResult.m */; };
 		06DA24AB1547F1AC005E1727 /* FeedsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06DA24AA1547F1AC005E1727 /* FeedsTableViewCell.xib */; };
 		1D3623260D0F684500981E51 /* POLSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* POLSAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
@@ -32,6 +34,11 @@
 		06C63F1C1546FF32006E4FF6 /* MyFavouritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFavouritesViewController.h; sourceTree = "<group>"; };
 		06C63F1D1546FF32006E4FF6 /* MyFavouritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFavouritesViewController.m; sourceTree = "<group>"; };
 		06C63F1E1546FF32006E4FF6 /* MyFavouritesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyFavouritesViewController.xib; sourceTree = "<group>"; };
+		06D73AA815492A5E00E7EB7F /* RestConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestConnection.h; sourceTree = "<group>"; };
+		06D73AA915492A7300E7EB7F /* RestConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestConnection.m; sourceTree = "<group>"; };
+		06D73AAB15492A8800E7EB7F /* RestConnectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestConnectionDelegate.h; sourceTree = "<group>"; };
+		06D73AB415496B3800E7EB7F /* FeedsResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedsResult.h; sourceTree = "<group>"; };
+		06D73AB515496B3800E7EB7F /* FeedsResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedsResult.m; sourceTree = "<group>"; };
 		06DA24AA1547F1AC005E1727 /* FeedsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedsTableViewCell.xib; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* POLSAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POLSAppDelegate.h; sourceTree = "<group>"; };
@@ -59,9 +66,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06D73AAC15492B5000E7EB7F /* RestConnection */ = {
+			isa = PBXGroup;
+			children = (
+				06D73AAB15492A8800E7EB7F /* RestConnectionDelegate.h */,
+				06D73AA815492A5E00E7EB7F /* RestConnection.h */,
+				06D73AA915492A7300E7EB7F /* RestConnection.m */,
+			);
+			name = RestConnection;
+			sourceTree = "<group>";
+		};
+		06D73AB715496B4600E7EB7F /* model */ = {
+			isa = PBXGroup;
+			children = (
+				06D73AB415496B3800E7EB7F /* FeedsResult.h */,
+				06D73AB515496B3800E7EB7F /* FeedsResult.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				06D73AB715496B4600E7EB7F /* model */,
+				06D73AAC15492B5000E7EB7F /* RestConnection */,
 				1D3623240D0F684500981E51 /* POLSAppDelegate.h */,
 				1D3623250D0F684500981E51 /* POLSAppDelegate.m */,
 				06C63F121546FEEE006E4FF6 /* FeedsViewController.h */,
@@ -192,6 +220,8 @@
 				06C63F151546FEEE006E4FF6 /* FeedsViewController.m in Sources */,
 				06C63F1A1546FF15006E4FF6 /* MyVictoriesViewController.m in Sources */,
 				06C63F1F1546FF32006E4FF6 /* MyFavouritesViewController.m in Sources */,
+				06D73AAA15492A7300E7EB7F /* RestConnection.m in Sources */,
+				06D73AB615496B3900E7EB7F /* FeedsResult.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
