@@ -28,5 +28,4 @@
 @property(nonatomic,retain) IBOutlet UILabel *postedBy;
 @property(nonatomic,retain) IBOutlet UILabel *onDate;
 @property (nonatomic,retain)IBOutlet UITableViewCell *tableViewCell;
-@property (nonatomic,retain) FeedsResult *objFeedsResult;
 @end

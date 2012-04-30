@@ -15,7 +15,7 @@
 @synthesize postedBy;
 @synthesize onDate;
 @synthesize tableViewCell;
-@synthesize objFeedsResult;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,7 +40,7 @@
 {
     NSArray *array = [[NSArray alloc] initWithObjects:@"iPhone",@"iPad",@"Android",@"Nokia",@"BlackBerry", nil];
     self.listData= array;
-    restConnection =[RestConnection new];
+    restConnection =[[RestConnection new]autorelease];
     restConnection.baseURLString=baseURL;
       
     restConnection.delegate=self;
@@ -72,8 +72,13 @@
     NSString *feedsReponse= [restConnection stringData];
     NSLog(@"feedsResponse: %@", feedsReponse);
     objFeedsResult = [FeedsResult new];
-    self.objFeedsResult = [FeedsResult parseFeedsData:feedsReponse];
-	//[activityIndicator stopAnimating];
+    NSMutableArray *array = [NSMutableArray array];
+    array = [FeedsResult parseFeedsData:feedsReponse];
+    NSLog(@"%d",[array count]);
+//	for (NSString *line in array){
+//        
+//    }
+    //[activityIndicator stopAnimating];
     //textView.text = [restConnection stringData];
 }
 
@@ -128,8 +133,8 @@
 
 - (void) dealloc 
 {
-    [listData dealloc];
-    [restConnection release];
+    //[listData release];
+    //[restConnection release];
     [super dealloc];
 }
 

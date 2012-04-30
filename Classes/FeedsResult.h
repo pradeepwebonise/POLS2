@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-
 @interface FeedsResult : NSObject
 {
     NSString *strFeedsId;
@@ -20,6 +19,6 @@
 @property (retain,nonatomic) NSString *strFeedsPostedBy;
 @property (retain,nonatomic) NSString *strFeedsOnDate;
 
-+ (FeedsResult *) parseFeedsData:(NSString *) strFeedsResponse;
++ (NSMutableArray *) parseFeedsData:(NSString *) strFeedsResponse;
 
 @end

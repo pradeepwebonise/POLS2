@@ -7,6 +7,7 @@
 //
 
 #import "FeedsResult.h"
+#import "JSON.h"
 
 @implementation FeedsResult
 
@@ -16,22 +17,40 @@
 @synthesize strFeedsOnDate;
 
 
-+ (FeedsResult *) parseFeedsData:(NSString *) strFeedsResponse
++ (NSMutableArray *) parseFeedsData:(NSString *) strFeedsResponse
 {
-    FeedsResult *objFeedsResult = [[FeedsResult new] autorelease];
-   // NSLog(@"FeedsResponse in Model: %@",strFeedsResponse);
-  //  NSArray *feedsData = [strFeedsResponse JSONVal];
-    NSArray *feedsData = [[NSArray alloc] init];
-   // feedsData = [strFeedsResponse JSONVal];
-    NSMutableArray *feedsValues = [[NSMutableArray alloc] init];
-    for(NSDictionary *item in feedsData)
+    //FeedsResult *objFeedsResult = [[FeedsResult new] autorelease];
+    NSLog(@"FeedsResponse in Model: %@",strFeedsResponse);
+    NSArray *feedsData = [strFeedsResponse JSONValue];
+    NSMutableArray *feedsValues = [NSMutableArray array];
+    for(int i=0;i<[feedsData count];i++)
     {
+        NSDictionary *tempDictionary = [feedsData objectAtIndex:i];
+        FeedsResult *objFeedsResult = [[FeedsResult alloc] init];
         
-        //[ids addObject:[item objectForKey:@"id"]];
-        //NSLog(@"ID: %@",[item objectForKey:@"id"]);
+        NSString *feedsId = [tempDictionary valueForKey:@"id"];
+        objFeedsResult.strFeedsId = [tempDictionary valueForKey:@"id"];
+        NSLog(@"ID: %@",feedsId);
+        
+        
+        NSString *feedsTitle=[tempDictionary valueForKey:@"title"];
+        objFeedsResult.strFeedsTitle = [tempDictionary valueForKey:@"title"];
+        NSLog(@"Title: %@",feedsTitle);
+        
+        NSString *feedsOnDate = [tempDictionary valueForKey:@"created_at"];
+        objFeedsResult.strFeedsOnDate = [tempDictionary valueForKey:@"created_at"];
+        NSLog(@"OnDate: %@",feedsOnDate);
+        
+        NSString *feedsUser = [tempDictionary valueForKey:@"user"];
+       // NSLog(@"User: %@",feedsUser);
+        
+        NSString *feedsPostedBy = [feedsUser valueForKey:@"name"];
+        NSLog(@"PostedBy: %@",feedsPostedBy);
+        objFeedsResult.strFeedsPostedBy = [feedsUser valueForKey:@"name"];
+        [feedsValues addObject:objFeedsResult];
+        
+        [objFeedsResult release];
     }
-    [feedsData release];
-    [feedsValues release];
-    return objFeedsResult;
+    return feedsValues;
 }
 @end

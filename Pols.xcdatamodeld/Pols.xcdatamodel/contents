@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="872" systemVersion="11A511" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Feeds" syncable="YES">
+        <attribute name="feeds_id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="feeds_ondate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="feeds_postedby" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="feeds_title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="MyVictories" syncable="YES">
+        <attribute name="myvictories_id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="myvictories_ondate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="myvictories_postedby" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="myvictories_title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Feeds" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="MyVictories" positionX="160" positionY="192" width="128" height="105"/>
+    </elements>
+</model>
