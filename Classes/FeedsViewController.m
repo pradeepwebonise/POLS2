@@ -7,7 +7,7 @@
 //
 
 #import "FeedsViewController.h"
-#define baseURL @"http://pols-2.heroku.com/apis/"
+
 
 @implementation FeedsViewController
 @synthesize listData;
@@ -72,14 +72,36 @@
     NSString *feedsReponse= [restConnection stringData];
     NSLog(@"feedsResponse: %@", feedsReponse);
     objFeedsResult = [FeedsResult new];
-    NSMutableArray *array = [NSMutableArray array];
-    array = [FeedsResult parseFeedsData:feedsReponse];
-    NSLog(@"%d",[array count]);
-//	for (NSString *line in array){
-//        
-//    }
-    //[activityIndicator stopAnimating];
-    //textView.text = [restConnection stringData];
+    NSMutableArray *feedsData = [NSMutableArray array];
+    feedsData = [FeedsResult parseFeedsData:feedsReponse];
+    NSLog(@"%d",[feedsData count]);
+    [self storeToDb:feedsData];
+    [self readFromDb];
+}
+
+-(void) readFromDb
+{
+    FeedsDbAdapter *feedsDbAdapter = [[FeedsDbAdapter alloc] init];
+    NSMutableArray *feedsData = [feedsDbAdapter getFeedsAll];
+}
+
+- (void) storeToDb:(NSMutableArray *)feedsData
+{
+    NSLog(@"%d",[feedsData count]);
+    FeedsDbAdapter *feedsDbAdapter = [[FeedsDbAdapter alloc] init];
+    [feedsDbAdapter deleteAll];
+        
+    for(int i=0;i<[feedsData count];i++)
+    {
+        FeedsResult *feedsResult = [feedsData objectAtIndex:i];
+        [feedsDbAdapter create:feedsResult];
+        
+        NSLog(@"ID:   %@",feedsResult.strFeedsId);
+        NSLog(@"Title:   %@",feedsResult.strFeedsTitle);
+        NSLog(@"Posted By:   %@",feedsResult.strFeedsPostedBy);
+        NSLog(@"OnDate:   %@",feedsResult.strFeedsOnDate);
+    }
+     
 }
 
 - (void)viewDidUnload
@@ -121,9 +143,57 @@
         NSUInteger row = [indexPath row];
         
         title.text=[listData objectAtIndex:row];
-        // title.text=@"Score FC";
+        title.text=@"Score FC";
         postedBy.text=@"Posted By: Nilesh";
         onDate.text=@"On: 2012-12-01";
+        
+        
+        
+        // =======================================================
+//        
+//        FeedsDbAdapter *feedsDbAdapter = [[FeedsDbAdapter alloc] init];
+//        NSMutableArray *feedsData = [feedsDbAdapter getFeedsAll];
+        
+//        
+//        for(int i=0;i<[feedsData count];i++)
+//        {
+//            FeedsResult *feedsResult = [FeedsResult new];
+//            feedsResult.strFeedsId = [[(NSManagedObject *)[feedsData objectAtIndex:i] valueForKey:@"feeds_id"] stringValue];
+//            NSLog(@"Feeds id %@",feedsResult.strFeedsId);
+//          //  title.text = feedsResult.strFeedsId;
+//            
+//            feedsResult.strFeedsTitle = [(NSManagedObject*)[feedsData objectAtIndex:i] valueForKey:@"feeds_title"];
+//            NSLog(@"Feeds Title %@",feedsResult.strFeedsTitle);
+//            
+//            feedsResult.strFeedsPostedBy = [(NSManagedObject*)[feedsData objectAtIndex:i] valueForKey:@"feeds_postedby"];
+//            NSLog(@"Feeds PostedBy %@",feedsResult.strFeedsPostedBy);
+//            
+//            feedsResult.strFeedsOnDate = [(NSManagedObject*)[feedsData objectAtIndex:i] valueForKey:@"feeds_ondate"];
+//            NSLog(@"Feeds Ondate %@", feedsResult.strFeedsOnDate);
+//            
+//            NSString *strdate = feedsResult.strFeedsOnDate;
+//            NSLog(@"%@",strdate);
+//            
+//            // ====================String to Date Conversion ===================
+//            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+//            [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+//            NSDate *postedDate = [dateFormat dateFromString:strdate];
+//            NSLog(@"postedDate....%@",postedDate);
+//            
+//            NSCalendar *calendarStartTime = [NSCalendar currentCalendar];
+//            NSDateComponents *componentsStartTime = [calendarStartTime components:(kCFCalendarUnitHour | kCFCalendarUnitMinute) fromDate:postedDate];
+//            NSInteger StartHour = [componentsStartTime hour];
+//            
+//            NSInteger StartMinute = [componentsStartTime minute];
+//            
+//            // =================================================================
+//            [feedsData addObject:feedsResult];
+//            [feedsResult release];
+//            
+//        }
+
+         // =======================================================
+        
     }
    
    return cell;

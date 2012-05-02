@@ -28,7 +28,7 @@
         NSDictionary *tempDictionary = [feedsData objectAtIndex:i];
         FeedsResult *objFeedsResult = [[FeedsResult alloc] init];
         
-        NSString *feedsId = [tempDictionary valueForKey:@"id"];
+        NSString * feedsId = [tempDictionary valueForKey:@"id"];
         objFeedsResult.strFeedsId = [tempDictionary valueForKey:@"id"];
         NSLog(@"ID: %@",feedsId);
         

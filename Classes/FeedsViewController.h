@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "RestConnection.h"
 #import  "FeedsResult.h"
+#import "FeedsDbAdapter.h"
+#define baseURL @"http://pols-2.heroku.com/apis/"
 
 @class RestConnection;
 
@@ -22,10 +24,16 @@
     FeedsResult *objFeedsResult;
     @private
     RestConnection *restConnection;
+   // NSMutableArray *feedsData;
 }
 @property(nonatomic,retain) NSArray *listData;
+//@property (nonatomic,retain) NSMutableArray *feedsData;
 @property (nonatomic,retain) IBOutlet UILabel *title;
 @property(nonatomic,retain) IBOutlet UILabel *postedBy;
 @property(nonatomic,retain) IBOutlet UILabel *onDate;
 @property (nonatomic,retain)IBOutlet UITableViewCell *tableViewCell;
+
+- (void) storeToDb:(NSMutableArray *)feedsData;
+-(void) readFromDb;
+
 @end

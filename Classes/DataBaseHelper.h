@@ -13,16 +13,19 @@
     NSManagedObjectContext *context;
     NSPersistentStoreCoordinator *persistentStoreCoordinator;
     NSString *dbName;
-    NSString *dbColumns;
+    NSArray *dbColumns;
+
 }
 
 @property (nonatomic,retain) NSManagedObjectContext  *context;
 @property (nonatomic,retain) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (nonatomic,retain) NSString *dbName;
-@property (nonatomic,retain) NSString *dbColumns;
+
 
 
 -(void)insertIntoTable:(NSDictionary*)dictionary;
-
-
+-(void) deleteAll;
+-(void)deleteFromTable:(NSManagedObject*) mObject;
+-(NSArray *)fetch:(int)remoteId;
+-(NSArray *)fetchAll;
+-(BOOL)save;
 @end
