@@ -14,6 +14,8 @@
 		06C63F1F1546FF32006E4FF6 /* MyFavouritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C63F1D1546FF32006E4FF6 /* MyFavouritesViewController.m */; };
 		06C63F201546FF32006E4FF6 /* MyFavouritesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06C63F1E1546FF32006E4FF6 /* MyFavouritesViewController.xib */; };
 		06CEBC231551156F00090E08 /* FeedsDbAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CEBC221551156F00090E08 /* FeedsDbAdapter.m */; };
+		06D23DAF1552AFA700B3F1DF /* MyVictoriesDbAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D23DAE1552AFA700B3F1DF /* MyVictoriesDbAdapter.m */; };
+		06D23DB21552D05C00B3F1DF /* MyFavouritesDbAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D23DB11552D05C00B3F1DF /* MyFavouritesDbAdapter.m */; };
 		06D73AAA15492A7300E7EB7F /* RestConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D73AA915492A7300E7EB7F /* RestConnection.m */; };
 		06D73AB615496B3900E7EB7F /* FeedsResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D73AB515496B3800E7EB7F /* FeedsResult.m */; };
 		06D94153155271B100F5382B /* VictoryDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D94151155271B100F5382B /* VictoryDetailController.m */; };
@@ -49,6 +51,10 @@
 		06C63F1E1546FF32006E4FF6 /* MyFavouritesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyFavouritesViewController.xib; sourceTree = "<group>"; };
 		06CEBC211551156F00090E08 /* FeedsDbAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedsDbAdapter.h; sourceTree = "<group>"; };
 		06CEBC221551156F00090E08 /* FeedsDbAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedsDbAdapter.m; sourceTree = "<group>"; };
+		06D23DAD1552AFA700B3F1DF /* MyVictoriesDbAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyVictoriesDbAdapter.h; sourceTree = "<group>"; };
+		06D23DAE1552AFA700B3F1DF /* MyVictoriesDbAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyVictoriesDbAdapter.m; sourceTree = "<group>"; };
+		06D23DB01552D05C00B3F1DF /* MyFavouritesDbAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFavouritesDbAdapter.h; sourceTree = "<group>"; };
+		06D23DB11552D05C00B3F1DF /* MyFavouritesDbAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFavouritesDbAdapter.m; sourceTree = "<group>"; };
 		06D73AA815492A5E00E7EB7F /* RestConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestConnection.h; sourceTree = "<group>"; };
 		06D73AA915492A7300E7EB7F /* RestConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestConnection.m; sourceTree = "<group>"; };
 		06D73AAB15492A8800E7EB7F /* RestConnectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestConnectionDelegate.h; sourceTree = "<group>"; };
@@ -123,6 +129,8 @@
 				06C63F1C1546FF32006E4FF6 /* MyFavouritesViewController.h */,
 				06C63F1D1546FF32006E4FF6 /* MyFavouritesViewController.m */,
 				06C63F1E1546FF32006E4FF6 /* MyFavouritesViewController.xib */,
+				06D23DB01552D05C00B3F1DF /* MyFavouritesDbAdapter.h */,
+				06D23DB11552D05C00B3F1DF /* MyFavouritesDbAdapter.m */,
 			);
 			name = myfavourites;
 			sourceTree = "<group>";
@@ -133,6 +141,8 @@
 				06C63F171546FF15006E4FF6 /* MyVictoriesViewController.h */,
 				06C63F181546FF15006E4FF6 /* MyVictoriesViewController.m */,
 				06C63F191546FF15006E4FF6 /* MyVictoriesViewController.xib */,
+				06D23DAD1552AFA700B3F1DF /* MyVictoriesDbAdapter.h */,
+				06D23DAE1552AFA700B3F1DF /* MyVictoriesDbAdapter.m */,
 			);
 			name = myvictories;
 			sourceTree = "<group>";
@@ -334,6 +344,8 @@
 				06E6577A154EC8E9005CF8A8 /* Pols.xcdatamodeld in Sources */,
 				06CEBC231551156F00090E08 /* FeedsDbAdapter.m in Sources */,
 				06D94153155271B100F5382B /* VictoryDetailController.m in Sources */,
+				06D23DAF1552AFA700B3F1DF /* MyVictoriesDbAdapter.m in Sources */,
+				06D23DB21552D05C00B3F1DF /* MyFavouritesDbAdapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

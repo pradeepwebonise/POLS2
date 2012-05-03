@@ -6,14 +6,21 @@
         <attribute name="feeds_postedby" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="feeds_title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="MyFavourites" syncable="YES">
+        <attribute name="myfavourites_id" optional="YES" attributeType="Decimal" defaultValueString="0" syncable="YES"/>
+        <attribute name="myfavourites_ondate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="myfavourites_postedby" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="myfavourites_title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="MyVictories" syncable="YES">
-        <attribute name="myvictories_id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="myvictories_ondate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="myvictories_id" optional="YES" attributeType="Decimal" defaultValueString="0" syncable="YES"/>
+        <attribute name="myvictories_ondate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="myvictories_postedby" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="myvictories_title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="Feeds" positionX="160" positionY="192" width="128" height="105"/>
         <element name="MyVictories" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="MyFavourites" positionX="160" positionY="192" width="128" height="105"/>
     </elements>
 </model>

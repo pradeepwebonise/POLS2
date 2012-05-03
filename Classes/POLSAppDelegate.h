@@ -21,7 +21,7 @@
     
 @private
     FeedsViewController *feedsViewController;
-    
+        
 }
 
 @property (nonatomic,retain,readonly) NSManagedObjectModel *managedObjectModel;

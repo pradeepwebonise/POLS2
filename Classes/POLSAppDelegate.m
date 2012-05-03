@@ -23,6 +23,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
     feedsViewController= [[FeedsViewController alloc] initWithNibName:@"FeedsViewController" bundle:nil];
+    
     // Override point for customization after application launch.
 	[window addSubview:tcTabBar.view];
     [window makeKeyAndVisible];

@@ -37,10 +37,10 @@
 
 #pragma mark - View lifecycle
 
+
 - (void)viewDidLoad
 {
-    NSArray *array = [[NSArray alloc] initWithObjects:@"iPhone",@"iPad",@"Android",@"Nokia",@"BlackBerry", nil];
-    self.listData= array;
+
    
     restConnection =[[RestConnection new]autorelease];
     restConnection.baseURLString=baseURL;
@@ -48,9 +48,7 @@
     
     NSString *urlString = [NSString stringWithFormat:@"feeds.js"];
     [restConnection performRequest:
-    [NSURLRequest requestWithURL:
-	[NSURL URLWithString:urlString]]];
-    [array release];
+    [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -177,7 +175,23 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"Cell Selected........");
-//    [self.view addSubview:viewVictoryDetailController view];
+   // NSLog(@"select .......%@",[feedsData objectAtIndex:[indexPath row]]);
+    NSUInteger row = [indexPath row];
+    NSLog(@"%d ",row);
+    
+    // =======================================================
+    
+    FeedsDbAdapter *feedsDbAdapter = [[FeedsDbAdapter alloc] init];
+    feedsData = [feedsDbAdapter getFeedsAll];
+    
+    FeedsResult *result = [feedsData objectAtIndex: row];
+    NSLog(@"Feeds IDddddddd :- %@",result.strFeedsId);
+    
+    
+    viewVictoryDetailController  = [[VictoryDetailController alloc]initWithNibName:@"VictoryDetailController" bundle:nil];
+    [self.view addSubview:viewVictoryDetailController.view];
+    
+ //   NSLog(@"select .......%@",[feedsData objectAtIndex:[indexPath row]]);
     //[self.navigationController pushViewController:self.viewVictoryDetailController animated:YES];
 }
 
