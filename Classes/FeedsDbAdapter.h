@@ -15,8 +15,6 @@
   
 }
 
-@property(nonatomic,retain) NSString *dbName;
-@property(nonatomic,retain)  NSArray *dbColumns;
 
 -(void)setDbName:(NSString*)databaseName;
 -(void)setDbColumns;

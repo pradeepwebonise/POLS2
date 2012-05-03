@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "RestConnection.h"
-#import  "FeedsResult.h"
+#import "VictoryDetailController.h"
+#import "FeedsResult.h"
 #import "FeedsDbAdapter.h"
 #define baseURL @"http://pols-2.heroku.com/apis/"
 
@@ -17,21 +18,24 @@
 @interface FeedsViewController : UIViewController
 <UITableViewDelegate, UITableViewDataSource,RestConnectionDelegate> {
     NSArray *listData;
-    UILabel *title;
-    UILabel *postedBy;
-    UILabel *onDate;
+    NSMutableArray *feedsData;
+    UILabel *lbTitle;
+    UILabel *lbPostedBy;
+    UILabel *lbOnDate;
     UITableViewCell *tableViewCell;
+   VictoryDetailController *viewVictoryDetailController;
     FeedsResult *objFeedsResult;
     @private
     RestConnection *restConnection;
    // NSMutableArray *feedsData;
 }
 @property(nonatomic,retain) NSArray *listData;
-//@property (nonatomic,retain) NSMutableArray *feedsData;
-@property (nonatomic,retain) IBOutlet UILabel *title;
-@property(nonatomic,retain) IBOutlet UILabel *postedBy;
-@property(nonatomic,retain) IBOutlet UILabel *onDate;
+@property (nonatomic,retain)NSMutableArray *feedsData;
+@property (nonatomic,retain)IBOutlet UILabel *lbTitle;
+@property(nonatomic,retain) IBOutlet UILabel *lbPostedBy;
+@property(nonatomic,retain) IBOutlet UILabel *lbOnDate;
 @property (nonatomic,retain)IBOutlet UITableViewCell *tableViewCell;
+@property(nonatomic,retain) VictoryDetailController *viewVictoryDetailController;
 
 - (void) storeToDb:(NSMutableArray *)feedsData;
 -(void) readFromDb;

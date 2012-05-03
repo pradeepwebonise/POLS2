@@ -97,6 +97,7 @@
 								<string key="NSFrame">{{199, 34}, {121, 21}}</string>
 								<reference key="NSSuperview" ref="407633945"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -150,27 +151,27 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">onDate</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="875954136"/>
-					</object>
-					<int key="connectionID">11</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">title</string>
+						<string key="label">lbTitle</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="870390792"/>
 					</object>
-					<int key="connectionID">9</int>
+					<int key="connectionID">17</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">postedBy</string>
+						<string key="label">lbPostedBy</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="625362239"/>
 					</object>
-					<int key="connectionID">10</int>
+					<int key="connectionID">18</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">lbOnDate</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="875954136"/>
+					</object>
+					<int key="connectionID">19</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -233,7 +234,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">16</int>
+			<int key="maxID">19</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -241,27 +242,27 @@
 					<string key="className">FeedsViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="onDate">UILabel</string>
-						<string key="postedBy">UILabel</string>
+						<string key="lbOnDate">UILabel</string>
+						<string key="lbPostedBy">UILabel</string>
+						<string key="lbTitle">UILabel</string>
 						<string key="tableViewCell">UITableViewCell</string>
-						<string key="title">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="onDate">
-							<string key="name">onDate</string>
+						<object class="IBToOneOutletInfo" key="lbOnDate">
+							<string key="name">lbOnDate</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="postedBy">
-							<string key="name">postedBy</string>
+						<object class="IBToOneOutletInfo" key="lbPostedBy">
+							<string key="name">lbPostedBy</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lbTitle">
+							<string key="name">lbTitle</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="tableViewCell">
 							<string key="name">tableViewCell</string>
 							<string key="candidateClassName">UITableViewCell</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="title">
-							<string key="name">title</string>
-							<string key="candidateClassName">UILabel</string>
 						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">

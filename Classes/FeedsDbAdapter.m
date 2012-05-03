@@ -67,19 +67,19 @@
         NSString *strdate = feedsResult.strFeedsOnDate;
         NSLog(@"%@",strdate);
         
-        // ====================String to Date Conversion ===================
-        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
-        NSDate *postedDate = [dateFormat dateFromString:strdate];
-        NSLog(@"postedDate....%@",postedDate);
-        
-        NSCalendar *calendarStartTime = [NSCalendar currentCalendar];
-        NSDateComponents *componentsStartTime = [calendarStartTime components:(kCFCalendarUnitHour | kCFCalendarUnitMinute) fromDate:postedDate];
-        NSInteger StartHour = [componentsStartTime hour];
-
-        NSInteger StartMinute = [componentsStartTime minute];
-        
-        // =================================================================
+//        // ====================String to Date Conversion ===================
+//        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+//        [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+//        NSDate *postedDate = [dateFormat dateFromString:strdate];
+//        NSLog(@"postedDate....%@",postedDate);
+//        
+//        NSCalendar *calendarStartTime = [NSCalendar currentCalendar];
+//        NSDateComponents *componentsStartTime = [calendarStartTime components:(kCFCalendarUnitHour | kCFCalendarUnitMinute) fromDate:postedDate];
+//        NSInteger StartHour = [componentsStartTime hour];
+//
+//        NSInteger StartMinute = [componentsStartTime minute];
+//        
+//        // =================================================================
         [feedsData addObject:feedsResult];
         [feedsResult release];
 

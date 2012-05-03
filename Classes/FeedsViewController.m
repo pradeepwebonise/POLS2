@@ -11,10 +11,12 @@
 
 @implementation FeedsViewController
 @synthesize listData;
-@synthesize title;
-@synthesize postedBy;
-@synthesize onDate;
+@synthesize feedsData;
+@synthesize lbTitle;
+@synthesize lbPostedBy;
+@synthesize lbOnDate;
 @synthesize tableViewCell;
+@synthesize viewVictoryDetailController;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -30,7 +32,6 @@
 {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
     // Release any cached data, images, etc that aren't in use.
 }
 
@@ -40,15 +41,15 @@
 {
     NSArray *array = [[NSArray alloc] initWithObjects:@"iPhone",@"iPad",@"Android",@"Nokia",@"BlackBerry", nil];
     self.listData= array;
+   
     restConnection =[[RestConnection new]autorelease];
     restConnection.baseURLString=baseURL;
-      
     restConnection.delegate=self;
     
     NSString *urlString = [NSString stringWithFormat:@"feeds.js"];
-	[restConnection performRequest:
-	 [NSURLRequest requestWithURL:
-	  [NSURL URLWithString:urlString]]];
+    [restConnection performRequest:
+    [NSURLRequest requestWithURL:
+	[NSURL URLWithString:urlString]]];
     [array release];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -71,35 +72,33 @@
 	NSLog(@"finishedReceivingData: %@", [restConnection stringData]);
     NSString *feedsReponse= [restConnection stringData];
     NSLog(@"feedsResponse: %@", feedsReponse);
-    objFeedsResult = [FeedsResult new];
-    NSMutableArray *feedsData = [NSMutableArray array];
-    feedsData = [FeedsResult parseFeedsData:feedsReponse];
-    NSLog(@"%d",[feedsData count]);
-    [self storeToDb:feedsData];
+    NSMutableArray *feedsDataArray = [NSMutableArray array];
+    feedsDataArray = [FeedsResult parseFeedsData:feedsReponse];
+    NSLog(@"%d",[feedsDataArray count]);
+    [self storeToDb:feedsDataArray];
     [self readFromDb];
 }
 
 -(void) readFromDb
 {
     FeedsDbAdapter *feedsDbAdapter = [[FeedsDbAdapter alloc] init];
-    NSMutableArray *feedsData = [feedsDbAdapter getFeedsAll];
+    feedsData = [feedsDbAdapter getFeedsAll];
 }
 
-- (void) storeToDb:(NSMutableArray *)feedsData
+- (void) storeToDb:(NSMutableArray *)feedsDataArray
 {
-    NSLog(@"%d",[feedsData count]);
+    NSLog(@"%d",[feedsDataArray count]);
     FeedsDbAdapter *feedsDbAdapter = [[FeedsDbAdapter alloc] init];
     [feedsDbAdapter deleteAll];
         
-    for(int i=0;i<[feedsData count];i++)
+    for(int i=0;i<[feedsDataArray count];i++)
     {
-        FeedsResult *feedsResult = [feedsData objectAtIndex:i];
+        FeedsResult *feedsResult = [feedsDataArray objectAtIndex:i];
         [feedsDbAdapter create:feedsResult];
-        
-        NSLog(@"ID:   %@",feedsResult.strFeedsId);
-        NSLog(@"Title:   %@",feedsResult.strFeedsTitle);
-        NSLog(@"Posted By:   %@",feedsResult.strFeedsPostedBy);
-        NSLog(@"OnDate:   %@",feedsResult.strFeedsOnDate);
+//        NSLog(@"IDdddddd:   %@",feedsResult.strFeedsId);
+//        NSLog(@"Title:   %@",feedsResult.strFeedsTitle);
+//        NSLog(@"Posted By:   %@",feedsResult.strFeedsPostedBy);
+//        NSLog(@"OnDate:   %@",feedsResult.strFeedsOnDate);
     }
      
 }
@@ -122,7 +121,10 @@
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.listData count];
+   // NSLog(@"############%d",feedsData.count);
+    FeedsDbAdapter *feedsDbAdapter = [[FeedsDbAdapter alloc] init];
+    feedsData = [feedsDbAdapter getFeedsAll];
+    return [self.feedsData count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -141,70 +143,49 @@
         cell=tableViewCell;
         self.tableViewCell=nil;
         NSUInteger row = [indexPath row];
-        
-        title.text=[listData objectAtIndex:row];
-        title.text=@"Score FC";
-        postedBy.text=@"Posted By: Nilesh";
-        onDate.text=@"On: 2012-12-01";
-        
-        
-        
-        // =======================================================
-//        
-//        FeedsDbAdapter *feedsDbAdapter = [[FeedsDbAdapter alloc] init];
-//        NSMutableArray *feedsData = [feedsDbAdapter getFeedsAll];
-        
-//        
-//        for(int i=0;i<[feedsData count];i++)
-//        {
-//            FeedsResult *feedsResult = [FeedsResult new];
-//            feedsResult.strFeedsId = [[(NSManagedObject *)[feedsData objectAtIndex:i] valueForKey:@"feeds_id"] stringValue];
-//            NSLog(@"Feeds id %@",feedsResult.strFeedsId);
-//          //  title.text = feedsResult.strFeedsId;
-//            
-//            feedsResult.strFeedsTitle = [(NSManagedObject*)[feedsData objectAtIndex:i] valueForKey:@"feeds_title"];
-//            NSLog(@"Feeds Title %@",feedsResult.strFeedsTitle);
-//            
-//            feedsResult.strFeedsPostedBy = [(NSManagedObject*)[feedsData objectAtIndex:i] valueForKey:@"feeds_postedby"];
-//            NSLog(@"Feeds PostedBy %@",feedsResult.strFeedsPostedBy);
-//            
-//            feedsResult.strFeedsOnDate = [(NSManagedObject*)[feedsData objectAtIndex:i] valueForKey:@"feeds_ondate"];
-//            NSLog(@"Feeds Ondate %@", feedsResult.strFeedsOnDate);
-//            
-//            NSString *strdate = feedsResult.strFeedsOnDate;
-//            NSLog(@"%@",strdate);
-//            
-//            // ====================String to Date Conversion ===================
-//            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-//            [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
-//            NSDate *postedDate = [dateFormat dateFromString:strdate];
-//            NSLog(@"postedDate....%@",postedDate);
-//            
-//            NSCalendar *calendarStartTime = [NSCalendar currentCalendar];
-//            NSDateComponents *componentsStartTime = [calendarStartTime components:(kCFCalendarUnitHour | kCFCalendarUnitMinute) fromDate:postedDate];
-//            NSInteger StartHour = [componentsStartTime hour];
-//            
-//            NSInteger StartMinute = [componentsStartTime minute];
-//            
-//            // =================================================================
-//            [feedsData addObject:feedsResult];
-//            [feedsResult release];
-//            
-//        }
+        NSLog(@"%d ",row);
 
-         // =======================================================
+        // =======================================================
+        
+        FeedsDbAdapter *feedsDbAdapter = [[FeedsDbAdapter alloc] init];
+        feedsData = [feedsDbAdapter getFeedsAll];
+        
+        FeedsResult *result = [feedsData objectAtIndex: row];
+        NSLog(@"Title :::::::- %@",result.strFeedsTitle);
+        NSLog(@"Posted by ::::::- %@",result.strFeedsPostedBy);
+                
+          lbTitle.text = result.strFeedsTitle;
+          lbPostedBy.text = result.strFeedsPostedBy;
+        // ====================String to Date Conversion ===================
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+        NSDate *postedDate = [dateFormat dateFromString:result.strFeedsOnDate];
+        NSLog(@"postedDate....%@",postedDate);
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+        
+        lbOnDate.text = [dateFormatter stringFromDate:postedDate];
+        [dateFormatter release];
+        // =======================================================
         
     }
    
    return cell;
 }
 
-
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"Cell Selected........");
+//    [self.view addSubview:viewVictoryDetailController view];
+    //[self.navigationController pushViewController:self.viewVictoryDetailController animated:YES];
+}
 
 - (void) dealloc 
 {
-    //[listData release];
-    //[restConnection release];
+    [listData release];
+    [feedsData release];
+    [restConnection release];
     [super dealloc];
 }
 
