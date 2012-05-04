@@ -10,8 +10,7 @@
 
 @implementation MyFavouritesViewController
 
-@synthesize listData;
-@synthesize feedsData;
+@synthesize myFavouritesData;
 @synthesize lbTitle;
 @synthesize lbPostedBy;
 @synthesize lbOnDate;
@@ -37,16 +36,13 @@
 
 #pragma mark - View lifecycle
 
-
 - (void)viewDidLoad
 {
-    
-    
     restConnection =[[RestConnection new]autorelease];
     restConnection.baseURLString=baseURL;
     restConnection.delegate=self;
     
-    NSString *urlString = [NSString stringWithFormat:@"feeds.js"];
+    NSString *urlString = [NSString stringWithFormat:@""];
     [restConnection performRequest:
      [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
     [super viewDidLoad];
@@ -70,35 +66,30 @@
 	NSLog(@"finishedReceivingData: %@", [restConnection stringData]);
     NSString *feedsReponse= [restConnection stringData];
     NSLog(@"MyFavourites Response: %@", feedsReponse);
-    NSMutableArray *feedsDataArray = [NSMutableArray array];
-    feedsDataArray = [FeedsResult parseFeedsData:feedsReponse];
-    NSLog(@"%d",[feedsDataArray count]);
-    [self storeToDb:feedsDataArray];
+    NSMutableArray *myFavouritesDataArray = [NSMutableArray array];
+    myFavouritesDataArray = [FeedsResult parseFeedsData:feedsReponse];
+    NSLog(@"%d",[myFavouritesDataArray count]);
+    [self storeToDb:myFavouritesDataArray];
     [self readFromDb];
 }
 
 -(void) readFromDb
 {
-    MyFavouritesDbAdapter *feedsDbAdapter = [[MyFavouritesDbAdapter alloc] init];
-    feedsData = [feedsDbAdapter getMyFavouritesAll];
+    MyFavouritesDbAdapter *myFavouritesDbAdapter = [[MyFavouritesDbAdapter alloc] init];
+    myFavouritesData = [myFavouritesDbAdapter getMyFavouritesAll];
 }
 
-- (void) storeToDb:(NSMutableArray *)feedsDataArray
+- (void) storeToDb:(NSMutableArray *)myFavouritesDataArray
 {
-    NSLog(@"%d",[feedsDataArray count]);
-    MyFavouritesDbAdapter *feedsDbAdapter = [[MyFavouritesDbAdapter alloc] init];
-    [feedsDbAdapter deleteAll];
+    NSLog(@"%d",[myFavouritesDataArray count]);
+    MyFavouritesDbAdapter *myFavouritesDbAdapter = [[MyFavouritesDbAdapter alloc] init];
+    [myFavouritesDbAdapter deleteAll];
     
-    for(int i=0;i<[feedsDataArray count];i++)
+    for(int i=0;i<[myFavouritesDataArray count];i++)
     {
-        FeedsResult *feedsResult = [feedsDataArray objectAtIndex:i];
-        [feedsDbAdapter create:feedsResult];
-        //        NSLog(@"IDdddddd:   %@",feedsResult.strFeedsId);
-        //        NSLog(@"Title:   %@",feedsResult.strFeedsTitle);
-        //        NSLog(@"Posted By:   %@",feedsResult.strFeedsPostedBy);
-        //        NSLog(@"OnDate:   %@",feedsResult.strFeedsOnDate);
+        FeedsResult *feedsResult = [myFavouritesDataArray objectAtIndex:i];
+        [myFavouritesDbAdapter create:feedsResult];
     }
-    
 }
 
 - (void)viewDidUnload
@@ -119,10 +110,9 @@
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // NSLog(@"############%d",feedsData.count);
-    MyFavouritesDbAdapter *feedsDbAdapter = [[MyFavouritesDbAdapter alloc] init];
-    feedsData = [feedsDbAdapter getMyFavouritesAll];
-    return [self.feedsData count];
+    MyFavouritesDbAdapter *myFavouritesDbAdapter = [[MyFavouritesDbAdapter alloc] init];
+    myFavouritesData = [myFavouritesDbAdapter getMyFavouritesAll];
+    return [self.myFavouritesData count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -145,10 +135,10 @@
         
         // =======================================================
         
-        MyFavouritesDbAdapter *feedsDbAdapter = [[MyFavouritesDbAdapter alloc] init];
-        feedsData = [feedsDbAdapter getMyFavouritesAll];
+        MyFavouritesDbAdapter *myFavouritesDbAdapter = [[MyFavouritesDbAdapter alloc] init];
+        myFavouritesData = [myFavouritesDbAdapter getMyFavouritesAll];
         
-        FeedsResult *result = [feedsData objectAtIndex: row];
+        FeedsResult *result = [myFavouritesData objectAtIndex: row];
         NSLog(@"Title :::::::- %@",result.strFeedsTitle);
         NSLog(@"Posted by ::::::- %@",result.strFeedsPostedBy);
         
@@ -181,24 +171,20 @@
     
     // =======================================================
     
-    MyFavouritesDbAdapter *feedsDbAdapter = [[MyFavouritesDbAdapter alloc] init];
-    feedsData = [feedsDbAdapter getMyFavouritesAll];
+    MyFavouritesDbAdapter *myFavouritesDbAdapter = [[MyFavouritesDbAdapter alloc] init];
+    myFavouritesData = [myFavouritesDbAdapter getMyFavouritesAll];
     
-    FeedsResult *result = [feedsData objectAtIndex: row];
+    FeedsResult *result = [myFavouritesData objectAtIndex: row];
     NSLog(@"Feeds IDddddddd :- %@",result.strFeedsId);
     
     
     viewVictoryDetailController  = [[VictoryDetailController alloc]initWithNibName:@"VictoryDetailController" bundle:nil];
     [self.view addSubview:viewVictoryDetailController.view];
-    
-    //   NSLog(@"select .......%@",[feedsData objectAtIndex:[indexPath row]]);
-    //[self.navigationController pushViewController:self.viewVictoryDetailController animated:YES];
 }
 
 - (void) dealloc 
 {
-    [listData release];
-    [feedsData release];
+    [myFavouritesData release];
     [restConnection release];
     [super dealloc];
 }

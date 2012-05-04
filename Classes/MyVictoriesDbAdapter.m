@@ -73,21 +73,4 @@
     return feedsData;
 }
 
-- (NSDate *)dateFromString:(NSString *)string
-{
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    [dateFormat setLocale:locale];
-    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSTimeInterval interval = 5 * 60 * 60;
-    
-    NSDate *date1 = [dateFormat dateFromString:string];  
-    date1 = [date1 dateByAddingTimeInterval:interval];
-    if(!date1) date1= [NSDate date];
-    [dateFormat release];
-    [locale release];
-    
-    return date1;
-}
-
 @end

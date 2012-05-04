@@ -32,7 +32,6 @@
         objFeedsResult.strFeedsId = [tempDictionary valueForKey:@"id"];
         NSLog(@"ID: %@",feedsId);
         
-        
         NSString *feedsTitle=[tempDictionary valueForKey:@"title"];
         objFeedsResult.strFeedsTitle = [tempDictionary valueForKey:@"title"];
         NSLog(@"Title: %@",feedsTitle);
@@ -42,7 +41,7 @@
         NSLog(@"OnDate: %@",feedsOnDate);
         
         NSString *feedsUser = [tempDictionary valueForKey:@"user"];
-       // NSLog(@"User: %@",feedsUser);
+        // NSLog(@"User: %@",feedsUser);
         
         NSString *feedsPostedBy = [feedsUser valueForKey:@"name"];
         NSLog(@"PostedBy: %@",feedsPostedBy);

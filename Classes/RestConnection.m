@@ -92,6 +92,87 @@
 }
 
 
+- (void)performRequestGET:(NSURLRequest *)aRequest:(NSString *)postData
+{    
+    NSMutableURLRequest *mutableRequest = [aRequest mutableCopy];
+    
+    // Add the base URL as necessary.
+    if ([[[mutableRequest URL] absoluteString] rangeOfString:baseURLString].location == NSNotFound)
+    {
+        NSURL *url = [NSURL URLWithString:[[mutableRequest URL] absoluteString] 
+                            relativeToURL:[NSURL URLWithString:baseURLString]];
+        [mutableRequest setURL:url];
+    }
+    
+    if ([mutableRequest valueForHTTPHeaderField:@"Content-Type"] == nil)
+        [mutableRequest setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    if ([mutableRequest valueForHTTPHeaderField:@"Accept"] == nil)
+        [mutableRequest setValue:@"application/json" forHTTPHeaderField:@"accept"];
+    
+    //--------------------------------------------------------------------------------------
+    
+    // NSString *postData = [[NSString alloc] initWithFormat:@"email=nilesh@weboniselab.com&password=nilesh"];
+    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    
+    NSLog(@"post:%@",postData);  
+    
+    [mutableRequest setHTTPMethod:@"GET"];
+    [mutableRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [mutableRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [mutableRequest setHTTPBody:[postData dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    
+    //---------------------------------------------------------------------------------------
+    
+    [self startRequest:mutableRequest];
+    
+    [mutableRequest release];
+}
+
+
+- (void)performRequestPOST:(NSURLRequest *)aRequest:(NSString *)postData
+{    
+    NSMutableURLRequest *mutableRequest = [aRequest mutableCopy];
+    
+    [mutableRequest setHTTPShouldHandleCookies:false];
+    [mutableRequest setHTTPShouldUsePipelining:false];
+    
+    // Add the base URL as necessary.
+    if ([[[mutableRequest URL] absoluteString] rangeOfString:baseURLString].location == NSNotFound)
+    {
+        NSURL *url = [NSURL URLWithString:[[mutableRequest URL] absoluteString] 
+                            relativeToURL:[NSURL URLWithString:baseURLString]];
+        [mutableRequest setURL:url];
+    }
+    
+    if ([mutableRequest valueForHTTPHeaderField:@"Content-Type"] == nil)
+        [mutableRequest setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    if ([mutableRequest valueForHTTPHeaderField:@"Accept"] == nil)
+        [mutableRequest setValue:@"application/json" forHTTPHeaderField:@"accept"];
+    
+    
+    //--------------------------------------------------------------------------------------
+    
+    // NSString *postData = [[NSString alloc] initWithFormat:@"email=nilesh@weboniselab.com&password=nilesh"];
+    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    
+    NSLog(@"post:%@",postData);  
+    
+    [mutableRequest setHTTPMethod:@"POST"];
+    [mutableRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [mutableRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [mutableRequest setHTTPBody:[postData dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    
+    //-----------------------------------------------------------------------------------------
+    
+    [self startRequest:mutableRequest];
+    
+    
+    [mutableRequest release];
+}
+
+
 #pragma mark Private Methods
 
 - (void)startRequest:(NSURLRequest *)aRequest

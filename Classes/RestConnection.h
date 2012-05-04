@@ -40,5 +40,7 @@
 // Designated Initializer
 - (id)initWithBaseURL:(NSString *)baseURL;
 - (void)performRequest:(NSURLRequest *)aRequest;
+- (void)performRequestGET:(NSURLRequest *)aRequest:(NSString *)postData;
+- (void)performRequestPOST:(NSURLRequest *)aRequest:(NSString *)postData;
 
 @end

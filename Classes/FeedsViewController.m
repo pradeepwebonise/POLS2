@@ -8,7 +8,6 @@
 
 #import "FeedsViewController.h"
 
-
 @implementation FeedsViewController
 @synthesize listData;
 @synthesize feedsData;
@@ -93,10 +92,6 @@
     {
         FeedsResult *feedsResult = [feedsDataArray objectAtIndex:i];
         [feedsDbAdapter create:feedsResult];
-//        NSLog(@"IDdddddd:   %@",feedsResult.strFeedsId);
-//        NSLog(@"Title:   %@",feedsResult.strFeedsTitle);
-//        NSLog(@"Posted By:   %@",feedsResult.strFeedsPostedBy);
-//        NSLog(@"OnDate:   %@",feedsResult.strFeedsOnDate);
     }
      
 }

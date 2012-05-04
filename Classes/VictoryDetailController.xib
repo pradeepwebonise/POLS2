@@ -413,6 +413,46 @@
 					</object>
 					<int key="connectionID">3</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">lbTitle</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="1027612379"/>
+					</object>
+					<int key="connectionID">23</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">lbPostedBy</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="761507354"/>
+					</object>
+					<int key="connectionID">24</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">lbOnDate</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="485746083"/>
+					</object>
+					<int key="connectionID">26</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">txtViewProblem</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="816204909"/>
+					</object>
+					<int key="connectionID">27</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">txtViewSolution</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="505419076"/>
+					</object>
+					<int key="connectionID">28</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -457,8 +497,8 @@
 							<reference ref="100856095"/>
 							<reference ref="816204909"/>
 							<reference ref="511545681"/>
-							<reference ref="452299949"/>
 							<reference ref="837189106"/>
+							<reference ref="452299949"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -560,13 +600,57 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">22</int>
+			<int key="maxID">28</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">VictoryDetailController</string>
 					<string key="superclassName">UIViewController</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="btnFavUnFav">UIButton</string>
+						<string key="btnPost">UIButton</string>
+						<string key="lbOnDate">UILabel</string>
+						<string key="lbPostedBy">UILabel</string>
+						<string key="lbTitle">UILabel</string>
+						<string key="txtFieldComment">UITextField</string>
+						<string key="txtViewProblem">UITextView</string>
+						<string key="txtViewSolution">UITextView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="btnFavUnFav">
+							<string key="name">btnFavUnFav</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="btnPost">
+							<string key="name">btnPost</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lbOnDate">
+							<string key="name">lbOnDate</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lbPostedBy">
+							<string key="name">lbPostedBy</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lbTitle">
+							<string key="name">lbTitle</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="txtFieldComment">
+							<string key="name">txtFieldComment</string>
+							<string key="candidateClassName">UITextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="txtViewProblem">
+							<string key="name">txtViewProblem</string>
+							<string key="candidateClassName">UITextView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="txtViewSolution">
+							<string key="name">txtViewSolution</string>
+							<string key="candidateClassName">UITextView</string>
+						</object>
+					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/VictoryDetailController.h</string>

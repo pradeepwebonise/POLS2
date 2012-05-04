@@ -11,14 +11,13 @@
 #import "VictoryDetailController.h"
 #import "FeedsResult.h"
 #import "MyVictoriesDbAdapter.h"
-#define baseURL @"http://pols-2.heroku.com/apis/"
+#define baseURL @"http://pols-2.heroku.com/apis/my_victories.js?AUTH_KEY=9819349370015737382199895&PAGE_NO=1"
 
 @class RestConnection;
 
 @interface MyVictoriesViewController : UIViewController
 <UITableViewDelegate, UITableViewDataSource,RestConnectionDelegate> {
-    NSArray *listData;
-    NSMutableArray *feedsData;
+    NSMutableArray *myVictoriesData;
     UILabel *lbTitle;
     UILabel *lbPostedBy;
     UILabel *lbOnDate;
@@ -29,15 +28,14 @@
     RestConnection *restConnection;
     // NSMutableArray *feedsData;
 }
-@property(nonatomic,retain) NSArray *listData;
-@property (nonatomic,retain)NSMutableArray *feedsData;
+@property (nonatomic,retain)NSMutableArray *myVictoriesData;
 @property (nonatomic,retain)IBOutlet UILabel *lbTitle;
 @property(nonatomic,retain) IBOutlet UILabel *lbPostedBy;
 @property(nonatomic,retain) IBOutlet UILabel *lbOnDate;
 @property (nonatomic,retain)IBOutlet UITableViewCell *tableViewCell;
 @property(nonatomic,retain) VictoryDetailController *viewVictoryDetailController;
 
-- (void) storeToDb:(NSMutableArray *)feedsData;
+- (void) storeToDb:(NSMutableArray *)myVictoriesDataArray;
 -(void) readFromDb;
 
 @end

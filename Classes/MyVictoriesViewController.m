@@ -8,10 +8,8 @@
 
 #import "MyVictoriesViewController.h"
 
-
 @implementation MyVictoriesViewController
-@synthesize listData;
-@synthesize feedsData;
+@synthesize myVictoriesData;
 @synthesize lbTitle;
 @synthesize lbPostedBy;
 @synthesize lbOnDate;
@@ -39,19 +37,25 @@
 
 - (void)viewDidLoad
 {
-    NSArray *array = [[NSArray alloc] initWithObjects:@"iPhone",@"iPad",@"Android",@"Nokia",@"BlackBerry", nil];
-    self.listData= array;
-    
     restConnection =[[RestConnection new]autorelease];
     restConnection.baseURLString=baseURL;
     restConnection.delegate=self;
+    NSString *authToken = @"9819349370015737382199895";
+   
+//    int pageNo=1;
+//    NSString *postData = [[NSString alloc] initWithFormat:@"AUTH_KEY=%@&PAGE_NO=%i",authToken,pageNo];
+//    NSString *urlString = [NSString stringWithFormat:@"my_victories.js"];
+//    [restConnection performRequestGET:[NSURLRequest requestWithURL:
+//     [NSURL URLWithString:urlString]]:postData];
+//    
     
-    NSString *urlString = [NSString stringWithFormat:@"feeds.js"];
-    [restConnection performRequest:
-     [NSURLRequest requestWithURL:
-      [NSURL URLWithString:urlString]]];
-    [array release];
-    NSLog(@"VIcccccccc");
+    int pageNo=1;
+    NSURL *url = [NSURL URLWithString:@""];
+//    NSString *postData = [[NSString alloc] initWithFormat:@"AUTH_KEY=%@&PAGE_NO=%i",authToken,pageNo];
+     NSString *postData = [[NSString alloc] initWithFormat:@"AUTH_KEY=%@&PAGE_NO=%i",authToken,pageNo];
+    [restConnection performRequest:[NSURLRequest requestWithURL:url]];
+    
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -73,33 +77,29 @@
 	NSLog(@"finishedReceivingData MyVictories: %@", [restConnection stringData]);
     NSString *feedsReponse= [restConnection stringData];
     NSLog(@"MyVictoriesResponse : %@", feedsReponse);
-    NSMutableArray *feedsDataArray = [NSMutableArray array];
-    feedsDataArray = [FeedsResult parseFeedsData:feedsReponse];
-    NSLog(@"%d",[feedsDataArray count]);
-    [self storeToDb:feedsDataArray];
+    NSMutableArray *myVictoriesDataArray = [NSMutableArray array];
+    myVictoriesDataArray = [FeedsResult parseFeedsData:feedsReponse];
+    NSLog(@"%d",[myVictoriesDataArray count]);
+    [self storeToDb:myVictoriesDataArray];
     [self readFromDb];
 }
 
 -(void) readFromDb
 {
-    MyVictoriesDbAdapter *feedsDbAdapter = [[MyVictoriesDbAdapter alloc] init];
-    feedsData = [feedsDbAdapter getMyVictoriesAll];
+    MyVictoriesDbAdapter *myVictoriesDbAdapter = [[MyVictoriesDbAdapter alloc] init];
+    myVictoriesData = [myVictoriesDbAdapter getMyVictoriesAll];
 }
 
-- (void) storeToDb:(NSMutableArray *)feedsDataArray
+- (void) storeToDb:(NSMutableArray *)myVictoriesDataArray
 {
-    NSLog(@"%d",[feedsDataArray count]);
-    MyVictoriesDbAdapter *feedsDbAdapter = [[MyVictoriesDbAdapter alloc] init];
-    [feedsDbAdapter deleteAll];
+    NSLog(@"%d",[myVictoriesDataArray count]);
+    MyVictoriesDbAdapter *myVictoriesDbAdapter = [[MyVictoriesDbAdapter alloc] init];
+    [myVictoriesDbAdapter deleteAll];
     
-    for(int i=0;i<[feedsDataArray count];i++)
+    for(int i=0;i<[myVictoriesDataArray count];i++)
     {
-        FeedsResult *feedsResult = [feedsDataArray objectAtIndex:i];
-        [feedsDbAdapter create:feedsResult];
-        //        NSLog(@"IDdddddd:   %@",feedsResult.strFeedsId);
-        //        NSLog(@"Title:   %@",feedsResult.strFeedsTitle);
-        //        NSLog(@"Posted By:   %@",feedsResult.strFeedsPostedBy);
-        //        NSLog(@"OnDate:   %@",feedsResult.strFeedsOnDate);
+        FeedsResult *feedsResult = [myVictoriesDataArray objectAtIndex:i];
+        [myVictoriesDbAdapter create:feedsResult];
     }
     
 }
@@ -122,10 +122,9 @@
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // NSLog(@"############%d",feedsData.count);
-    MyVictoriesDbAdapter *feedsDbAdapter = [[MyVictoriesDbAdapter alloc] init];
-    feedsData = [feedsDbAdapter getMyVictoriesAll];
-    return [self.feedsData count];
+    MyVictoriesDbAdapter *myVictoriesDbAdapter = [[MyVictoriesDbAdapter alloc] init];
+    myVictoriesData = [myVictoriesDbAdapter getMyVictoriesAll];
+    return [self.myVictoriesData count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -136,7 +135,6 @@
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     static NSString *feedsTableIdentifier = @"FeedsTableIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:feedsTableIdentifier];
     if (cell==nil) {
@@ -149,9 +147,9 @@
         // =======================================================
         
         MyVictoriesDbAdapter *feedsDbAdapter = [[MyVictoriesDbAdapter alloc] init];
-        feedsData = [feedsDbAdapter getMyVictoriesAll];
+        myVictoriesData = [feedsDbAdapter getMyVictoriesAll];
         
-        FeedsResult *result = [feedsData objectAtIndex: row];
+        FeedsResult *result = [myVictoriesData objectAtIndex: row];
         NSLog(@"Title :::::::- %@",result.strFeedsTitle);
         NSLog(@"Posted by ::::::- %@",result.strFeedsPostedBy);
         
@@ -184,10 +182,10 @@
     
     // =======================================================
     
-    MyVictoriesDbAdapter *feedsDbAdapter = [[MyVictoriesDbAdapter alloc] init];
-    feedsData = [feedsDbAdapter getMyVictoriesAll];
+    MyVictoriesDbAdapter *myVictoriesDbAdapter = [[MyVictoriesDbAdapter alloc] init];
+    myVictoriesData = [myVictoriesDbAdapter getMyVictoriesAll];
     
-    FeedsResult *result = [feedsData objectAtIndex: row];
+    FeedsResult *result = [myVictoriesData objectAtIndex: row];
     NSLog(@"Feeds IDddddddd :- %@",result.strFeedsId);
     
     
@@ -197,8 +195,7 @@
 
 - (void) dealloc 
 {
-    [listData release];
-    [feedsData release];
+    [myVictoriesData release];
     [restConnection release];
     [super dealloc];
 }
