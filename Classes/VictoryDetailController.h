@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "RestConnection.h"
+#import "FeedsResult.h"
 #define baseURL @"http://pols-2.heroku.com/apis/victory_detail.js?AUTH_KEY=9819349370015737382199895&VICTORY_ID=305"
 
 @class  RestConnection;
@@ -34,6 +35,9 @@
 @property(nonatomic,retain) IBOutlet UITextField *txtFieldComment;
 @property(nonatomic,retain) IBOutlet UIButton *btnPost;
 
--(void) showData:(NSString *) victoryDetailReponse;
--(void) commentsParse:(NSString*) comments;
+-(void) showData:(NSMutableArray *) victoryData;
+-(void) commentshow:(NSMutableArray*) commentsData;
+
+-(IBAction)onBarButtonItemClick:(id)sender;
+
 @end

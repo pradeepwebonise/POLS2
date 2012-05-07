@@ -8,6 +8,7 @@
 
 #import "VictoryDetailController.h"
 #import "JSON.h"
+#import "FeedsViewController.h"
 
 @implementation VictoryDetailController
 @synthesize lbTitle;
@@ -35,13 +36,17 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
+-(void) viewWillAppear:(BOOL)animated
+{
+ self.view.frame = CGRectMake(0, 0, 320,611);
+}
 
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     restConnection =[[RestConnection new]autorelease];
-    restConnection.baseURLString=baseURL;
+    restConnection.baseURLString=@"http://pols-2.heroku.com/apis/victory_detail.js?AUTH_KEY=9819349370015737382199895&VICTORY_ID=305";
     restConnection.delegate=self;
     NSString *authToken = @"9819349370015737382199895";
     int pageNo=1;
@@ -71,84 +76,66 @@
 {
 	NSLog(@"finishedReceivingData MyVictories: %@", [restConnection stringData]);
     NSString *victoryDetailReponse= [restConnection stringData];
-    [self showData:victoryDetailReponse];
+    NSMutableArray *victoryData = [FeedsResult parseVictoryDetailData:victoryDetailReponse];
+    [self showData:victoryData];
 }
 
--(void) showData:(NSString *) victoryDetailReponse
+-(void) showData:(NSMutableArray *) victoryData
 {
-    NSDictionary *arrayData = (NSDictionary*)[victoryDetailReponse JSONValue];
-    NSString *title = [arrayData objectForKey:@"title"];
-    lbTitle.text=title;
-    NSLog(@"Detail Title:::%@",title);
+    FeedsResult *objFeedsResult = [[FeedsResult alloc] init];   
+    objFeedsResult = [victoryData objectAtIndex:0];
+    NSString *title = objFeedsResult.strFeedsTitle;
+    NSLog(@"Shows Title:::%@", title);
+    lbTitle.text= title;
     
-    NSString *user = [arrayData valueForKey:@"user"];
-   // NSLog(@"Detail user:::%@",user);
-    
-    NSString *postedBy = [user valueForKey:@"name"];
+    Boolean isFavUnFav = objFeedsResult.isFavUnFav;
+    if(isFavUnFav)
+    {
+        UIImage *imgFavUnFav = [UIImage imageNamed:@"star_icon_yellow.png"];
+        [btnFavUnFav setImage:imgFavUnFav forState:UIControlStateNormal];;
+        [imgFavUnFav release];
+    }
+    else
+    {
+       UIImage *imgFavUnFav = [UIImage imageNamed:@"star_icon_gray.png"];
+       [btnFavUnFav setImage:imgFavUnFav forState:UIControlStateNormal];;
+       [imgFavUnFav release];
+    }
+         
+    NSString *postedBy = objFeedsResult.strFeedsPostedBy;
+    NSLog(@"Shows PostedBy:::%@", postedBy);
     lbPostedBy.text=postedBy;
-    NSLog(@"Detail postedBy:::%@",postedBy);
     
-    NSString *OnDate = [arrayData objectForKey:@"created_at"];
+    NSString *onDate = objFeedsResult.strFeedsOnDate;
+    NSLog(@"Shows OnDate:::%@", onDate);
+    lbOnDate.text=onDate;
     
-    // ====================String to Date Conversion ===================
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
-    NSDate *postedDate = [dateFormat dateFromString:OnDate];
-    NSLog(@"postedDate....%@",postedDate);
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    
-    lbOnDate.text = [dateFormatter stringFromDate:postedDate];
-    [dateFormatter release];
-    // ======================================================
-    NSLog(@"Detail OnDate:::%@",postedDate);
-    
-    NSString *problem = [arrayData objectForKey:@"problem"];
+    NSString *problem = objFeedsResult.strProblem;
+    NSLog(@"Shows Problem:::%@", problem);
     txtViewProblem.text=problem;
-    NSLog(@"Detail Problem:::%@",problem);
     
-    NSString *solution = [arrayData objectForKey:@"solution"];
+    NSString *solution = objFeedsResult.strSolution;
+    NSLog(@"Shows Solution:::%@", solution);
     txtViewSolution.text=solution;
-    NSLog(@"Detail solution:::%@",solution);
-    
-    NSString *comments = [arrayData objectForKey:@"comments"];
-    NSLog(@"Detail Comments:::%@",comments);
-    [self commentsParse:comments];    
-    
+        
+    NSMutableArray *CommentsData = objFeedsResult.CommentsData;
+    [self commentshow:CommentsData];
 }
--(void) commentsParse:(NSString*) comments
+-(void) commentshow:(NSMutableArray*) commentsData
 {
-//    NSArray *commentsData = [comments JSONValue];
-//    for(int i=0;i<[commentsData count];i++)
-//    {
-//        NSDictionary *dictionary = [commentsData objectAtIndex:i];
-//        NSString *commentTitle = [dictionary valueForKey:@"comment"];
-//         NSLog(@"Comments Name:::%@",commentTitle);
-//        
-//        NSString *commentUser = [dictionary valueForKey:@"user"];
-//        NSString *commentPostedBy = [commentUser valueForKey:@"name"];
-//        
-//        NSLog(@"Comments PostedBy:::%@",commentPostedBy);
-//        
-        
-//        NSString *commentOnDate = [dictionary valueForKey:@"created_at"];
-//        // ====================String to Date Conversion ===================
-//        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-//        [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
-//        NSDate *postedDate = [dateFormat dateFromString:commentOnDate];
-//        NSLog(@"postedDate....%@",postedDate);
-//        
-//        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-//        
-//        lbOnDate.text = [dateFormatter stringFromDate:postedDate];
-//        [dateFormatter release];
-//        // ======================================================
-//        NSLog(@"Detail OnDate:::%@",postedDate);
+    for(int i=0;i<[commentsData count];i++)
+    {
+        FeedsResult *objFeedsResult = [[FeedsResult alloc] init];
+        objFeedsResult = [commentsData objectAtIndex:i];
+        NSLog(@"Comments Name:::%@",objFeedsResult.strFeedsTitle);
+        NSLog(@"Comments PostedBy:::%@",objFeedsResult.strFeedsPostedBy);
+        NSLog(@"Comment PostedDate....%@",objFeedsResult.strFeedsOnDate);
+    }
+}
 
-        
-  //  }
+-(IBAction)onBarButtonItemClick:(id)sender {
+    FeedsViewController *feedsViewController = [[FeedsViewController alloc]initWithNibName:@"FeedsViewController" bundle:nil];
+    [self.view addSubview:feedsViewController.view];
 }
 
 - (void)viewDidUnload

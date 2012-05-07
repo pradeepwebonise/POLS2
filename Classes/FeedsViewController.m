@@ -183,7 +183,9 @@
     NSLog(@"Feeds IDddddddd :- %@",result.strFeedsId);
     
     
+    
     viewVictoryDetailController  = [[VictoryDetailController alloc]initWithNibName:@"VictoryDetailController" bundle:nil];
+   
     [self.view addSubview:viewVictoryDetailController.view];
     
  //   NSLog(@"select .......%@",[feedsData objectAtIndex:[indexPath row]]);
