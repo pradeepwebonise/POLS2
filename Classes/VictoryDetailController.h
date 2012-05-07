@@ -15,6 +15,7 @@
 @interface VictoryDetailController : UIViewController
 <UITableViewDelegate, UITableViewDataSource, RestConnectionDelegate>
 {
+    UITableView *tableview;
     UILabel *lbTitle;
     UIButton *btnFavUnFav;
     UILabel *lbPostedBy;
@@ -22,7 +23,9 @@
     UITextView *txtViewProblem;
     UITextView *txtViewSolution;
     UITextField *txtFieldComment;
+    UITableViewCell *tableViewCell;
     UIButton *btnPost;
+    NSMutableArray *commentsData;
 @private 
     RestConnection *restConnection;
 }
@@ -34,6 +37,9 @@
 @property(nonatomic,retain) IBOutlet UITextView *txtViewSolution;
 @property(nonatomic,retain) IBOutlet UITextField *txtFieldComment;
 @property(nonatomic,retain) IBOutlet UIButton *btnPost;
+@property(nonatomic,retain) IBOutlet UITableViewCell *tableViewCell;
+@property(nonatomic,retain) IBOutlet  UITableView *tableview;
+@property(nonatomic,retain) NSMutableArray *commentsData;
 
 -(void) showData:(NSMutableArray *) victoryData;
 -(void) commentshow:(NSMutableArray*) commentsData;

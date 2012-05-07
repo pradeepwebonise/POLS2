@@ -19,6 +19,8 @@
 @synthesize txtViewSolution;
 @synthesize txtFieldComment;
 @synthesize btnPost;
+@synthesize commentsData;
+@synthesize tableview;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,10 +43,45 @@
  self.view.frame = CGRectMake(0, 0, 320,611);
 }
 
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSLog(@"############%d",[commentsData count]);
+    NSLog(@"Comments data -%@",commentsData);
+    return [self.commentsData count];
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 62.0;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *feedsTableIdentifier = @"FeedsTableIdentifier";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:feedsTableIdentifier];
+    if(cell==nil)
+    {
+        [[NSBundle mainBundle] loadNibNamed:@"FeedsTableViewCell" owner:self options:nil];
+        cell=tableViewCell;
+       // self.tableViewCell=nil;
+        NSUInteger row = [indexPath row];
+        NSLog(@"%d ",row);
+        
+        FeedsResult *result = [commentsData objectAtIndex:row];
+        lbTitle.text = result.strFeedsTitle;
+        lbPostedBy.text = result.strFeedsPostedBy;
+        lbOnDate.text = result.strFeedsOnDate;
+       // self.tableViewCell=nil;
+    }
+    
+    return  cell;
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
+    self.commentsData = [[NSMutableArray alloc] init];
     restConnection =[[RestConnection new]autorelease];
     restConnection.baseURLString=@"http://pols-2.heroku.com/apis/victory_detail.js?AUTH_KEY=9819349370015737382199895&VICTORY_ID=305";
     restConnection.delegate=self;
@@ -54,11 +91,10 @@
     //    NSString *postData = [[NSString alloc] initWithFormat:@"AUTH_KEY=%@&PAGE_NO=%i",authToken,pageNo];
     NSString *postData = [[NSString alloc] initWithFormat:@"AUTH_KEY=%@&PAGE_NO=%i",authToken,pageNo];
     [restConnection performRequest:[NSURLRequest requestWithURL:url]];
-        
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
-
 
 #pragma mark RestConnectionDelegate
 
@@ -118,8 +154,9 @@
     NSLog(@"Shows Solution:::%@", solution);
     txtViewSolution.text=solution;
         
-    NSMutableArray *CommentsData = objFeedsResult.CommentsData;
-    [self commentshow:CommentsData];
+    commentsData = objFeedsResult.CommentsData;
+    [self commentshow:commentsData];
+    [tableview reloadData];
 }
 -(void) commentshow:(NSMutableArray*) commentsData
 {
